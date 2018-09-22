@@ -6,6 +6,9 @@ import router from './router'
 
 Vue.config.productionTip = false
 
+import http from '@/components/api/http'
+Vue.prototype.http = http;
+
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

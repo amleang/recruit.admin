@@ -8,27 +8,28 @@
             <div class="input">
               <input type="text" placeholder="请输入账号名" maxlength="20" v-model="form.username" class="user">
             </div>
-            <div class="input">
-              <input type="password" placeholder="请输入密码" v-model="form.pwd" class="pwd">
+              <div class="input">
+                <input type="password" placeholder="请输入密码" v-model="form.pwd" class="pwd">
             </div>
-            <div>
-              <div class="input" style="width:275px;float:left;margin-top:0;margin-right:20px;">
-                <input type="text" placeholder="请输入验证码" maxlength="10" v-model="form.captcha" class="check">
+                <div>
+                  <div class="input" style="width:275px;float:left;margin-top:0;margin-right:20px;">
+                    <input type="text" placeholder="请输入验证码" maxlength="10" v-model="form.captcha" class="check">
               </div>
-              <div style="float:left;height:45px;margin-left:-10px; width:115px;background:#ccc;">
-                <img style="height:40px;margin-top:2px;cursor: pointer;" :src="captcha" @click="change_captcha">
+                    <div style="float:left;height:45px;margin-left:-10px; width:115px;background:#ccc;">
+                      <img style="height:40px;margin-top:2px;cursor: pointer;" :src="captcha" @click="change_captcha">
               </div>
-              <div style="clear:both"></div>
+                      <div style="clear:both"></div>
+                    </div>
+                    <div class="btn-login" @click="login_handle">登录</div>
+                  </div>
+                </div>
+              </div>
             </div>
-            <div class="btn-login" @click="login_handle">登录</div>
           </div>
-        </div>
-      </div>
-    </div>
-  </div>
 </template>
 
 <script>
+import Cookies from "js-cookie";
 export default {
   data() {
     return {
@@ -71,7 +72,12 @@ export default {
         return;
       }
       this.http.get("/api/user/login", { params: this.form }).then(res => {
-        console.log("res=>", res);
+        if (res.code == 200) {
+          Cookies.set("recrit-web", JSON.stringify(res.docs), { expires: 7 });
+          this.$router.push({ path: "/" });
+        } else {
+          this.$message.error(res.msg);
+        }
       });
     }
   }

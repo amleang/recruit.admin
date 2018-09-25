@@ -12,12 +12,9 @@ export default {
 </script>
 
 <style>
+@import '//at.alicdn.com/t/font_851591_wegv2xxhcdo.css';
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+  height: 100%;
+  width:100%;
 }
 </style>

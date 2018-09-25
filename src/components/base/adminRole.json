@@ -1,0 +1,35 @@
+[{
+    "id": 1,
+    "name": "主页",
+    "icon": "icon-shouye-xianxing",
+    "path": "/",
+    "subList": []
+  },
+  {
+    "id": 2,
+    "name": "企业",
+    "icon": "icon-qiyeyuanquwuye-xianxing",
+    "path": "/enterprise",
+    "subList": [{
+      "id": 3,
+      "name": "企业管理",
+      "path": "/enterprise/list"
+    }, {
+      "id": 4,
+      "name": "用户管理",
+      "path": "/enterprise/user"
+    }]
+  }, {
+    "id": 5,
+    "name": "招聘",
+    "icon": "icon-hezuoguanxi-xianxing",
+    "path": "/recruit",
+    "subList": [
+      {
+        "id": 6,
+        "name": "招聘管理",
+        "path": "/recruit/list"
+      }
+    ]
+  }
+]

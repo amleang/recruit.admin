@@ -1,0 +1,28 @@
+[{
+    "id": 1,
+    "name": "主页",
+    "icon": "icon-shouye-xianxing",
+    "path": "/",
+    "subList": []
+  },
+  {
+    "id": 2,
+    "name": "企业信息",
+    "icon": "icon-qiyeyuanquwuye-xianxing",
+    "path": "/info",
+    "subList": []
+  },
+  {
+    "id": 3,
+    "name": "招聘",
+    "icon": "icon-hezuoguanxi-xianxing",
+    "path": "/recruit",
+    "subList": [
+      {
+        "id": 4,
+        "name": "招聘管理",
+        "path": "/recruit/list"
+      }
+    ]
+  }
+]

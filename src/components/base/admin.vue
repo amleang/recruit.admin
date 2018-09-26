@@ -68,12 +68,11 @@
 <script>
 import Cookies from "js-cookie";
 import adminJson from "./adminRole";
-import enterpriseJson from "./enterpriseRole";
 export default {
   data() {
     return {
       user: {},
-      title: "招聘管理系统",
+      title: "招工管理系统",
       conWidth: 500,
       isCollapse: false,
       activeMenu: "1",
@@ -86,8 +85,8 @@ export default {
     console.log("cookie=>", member);
     if (member) {
       this.user = JSON.parse(member);
-      if (this.user.role == 1) this.menuList = adminJson;
-      else this.menuList = enterpriseJson;
+      this.menuList = adminJson;
+
       this.url_change_handle();
     } else {
       this.$message.error("用户登录失效，请重新登录！");
@@ -163,8 +162,8 @@ export default {
       this.main_width();
       this.isCollapse = !this.isCollapse;
       setTimeout(() => {
-        if (!this.isCollapse) this.title = "招聘管理系统";
-        else this.title = "招聘";
+        if (!this.isCollapse) this.title = "招工管理系统";
+        else this.title = "招工";
       }, 200);
     },
     main_width() {

@@ -42,8 +42,12 @@
           <span style="margin:0 10px;">{{user.username}}</span>
           <div class="head-ul">
             <div class="tool-menu">
+              <div class="menu-item">
+                <i class="iconfont icon-mima"></i>
+                修改密码
+              </div>
               <div class="menu-item" @click="login_out_handle">
-                <i class="iconfont icon-secede"></i>
+                <i class="iconfont icon-tuichu"></i>
                 退出登录</div>
             </div>
           </div>

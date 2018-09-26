@@ -21,7 +21,6 @@ Vue.component('base-table', baseTable);
 import http from '@/components/api/http'
 Vue.prototype.http = http;
 
-/* eslint-disable no-new */
 new Vue({
   el: '#app',
   router,

@@ -81,7 +81,7 @@ export default {
     };
   },
   mounted() {
-    var member = Cookies.get("recrit-web");
+    var member = Cookies.get("recrit-ck");
     console.log("cookie=>", member);
     if (member) {
       this.user = JSON.parse(member);

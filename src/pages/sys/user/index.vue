@@ -44,9 +44,9 @@
           {{props.row.role==1?'管理员':'推销员'}}
         </div>
         <div v-if="props.tplName=='toperation'">
-          <el-button size="small" type="danger" v-if="props.row.active==1">禁用</el-button>
-          <el-button size="small" type="success" v-else>启用</el-button>
-          <el-button size="small" v-if="props.row.role!=1" icon="el-icon-edit" type="primary">编辑
+          <el-button size="small" type="danger" v-if="props.row.active==1" @click="enable_handle(props.row,0)">禁用</el-button>
+          <el-button size="small" type="success" v-else @click="enable_handle(props.row,1)">启用</el-button>
+          <el-button size="small" v-if="props.row.role!=1" icon="el-icon-edit" type="primary" @click="editor_handle(props.row)">编辑
           </el-button>
         </div>
       </template>
@@ -57,6 +57,7 @@
 
 <script>
 import detailForm from "./form";
+import _ from "lodash";
 export default {
   components: {
     detailForm
@@ -100,15 +101,24 @@ export default {
         else delete this.queryParams[item];
       });
       this.$refs.table.reload();
-      console.log("test=>", this.queryParams);
-      /* if (this.searchForm.active)
-      this.$set
-        this.queryParams.active = this.searchForm.active;
-      else delete this.queryParams.active; */
     },
     add_handle() {
       this.currid = 0;
       this.formDialog = true;
+    },
+    editor_handle(row) {
+      this.currid = row.id;
+      this.formDialog = true;
+    },
+    enable_handle(row, active) {
+      let form = _.assign({}, row);
+      delete form.createAt;
+      form.active = active;
+      this.http.put("/api/user", form).then(res => {
+        if (res.code == 200) {
+          row.active = active;
+        } else this.$message.error(res.msg);
+      });
     },
     dialog_handle(res) {
       this.formDialog = res.dialog;

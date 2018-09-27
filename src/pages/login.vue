@@ -73,7 +73,7 @@ export default {
       }
       this.http.get("/api/user/login", { params: this.form }).then(res => {
         if (res.code == 200) {
-          Cookies.set("recrit-web", JSON.stringify(res.docs), { expires: 7 });
+          //Cookies.set("recrit-web", JSON.stringify(res.docs), { expires: 7 });
           this.$router.push({ path: "/" });
         } else {
           this.$message.error(res.msg);

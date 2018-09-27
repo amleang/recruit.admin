@@ -13,56 +13,56 @@
     "path": "/sys",
     "subList": [
       {
-        "id": 4,
+        "id": 3,
         "name": "用户管理",
-        "path": "/enterprise/user"
+        "path": "/sys/user"
       },
       {
-        "id": 5,
+        "id": 4,
         "name": "公司信息",
         "path": "/enterprise/co"
       }
     ]
   },
   {
-    "id": 2,
+    "id":5,
     "name": "企业",
     "icon": "icon-qiyeyuanquwuye-xianxing",
     "path": "/enterprise",
     "subList": [
       {
-        "id": 3,
+        "id": 6,
         "name": "企业管理",
         "path": "/enterprise/list"
       }
     ]
   },
   {
-    "id": 5,
+    "id": 7,
     "name": "招工",
     "icon": "icon-hezuoguanxi-xianxing",
     "path": "/recruit",
     "subList": [
       {
-        "id": 6,
+        "id": 8,
         "name": "招工管理",
         "path": "/recruit/list"
       }
     ]
   },
   {
-    "id": 7,
+    "id": 9,
     "name": "报表",
     "icon": "icon-zhexiantu-xianxing",
     "path": "report",
     "subList": [
       {
-        "id": 6,
+        "id": 10,
         "name": "报表1",
         "path": "/recruit/list"
       },
       {
-        "id": 6,
+        "id": 11,
         "name": "报表2",
         "path": "/recruit/list"
       }

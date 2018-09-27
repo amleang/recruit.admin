@@ -7,19 +7,28 @@
       <el-form-item label="真实姓名" prop="relname">
         <el-input size="small" v-model="form.relname" maxlength="50" style="width:300px;" placeholder="请输入真实姓名"></el-input>
       </el-form-item>
-      <el-form-item label="企业" prop="coId">
+      <!-- <el-form-item label="企业" prop="coId">
         <el-select size="small" style="width:300px;" v-model="form.coId" filterable placeholder="--请选择--">
           <el-option v-for="item in entList" :key="item.id" :label="item.name" :value="item.id"></el-option>
         </el-select>
-      </el-form-item>
+      </el-form-item> -->
       <el-form-item label="状态" prop="active">
         <el-select size="small" style="width:300px;" v-model="form.active" placeholder="--请选择--">
           <el-option label="启用" value="1"></el-option>
           <el-option label="禁用" value="0"></el-option>
         </el-select>
       </el-form-item>
+      <el-form-item label="角色" prop="role">
+        <el-select size="small" style="width:300px;" v-model="form.role" placeholder="--请选择--">
+          <el-option label="管理员" value="1"></el-option>
+          <el-option label="推销员" value="2"></el-option>
+        </el-select>
+      </el-form-item>
+      <el-form-item label="邀请码">
+        <el-input v-model="form.invitationCode" disabled style="width:300px;" size="small"></el-input>
+      </el-form-item>
     </el-form>
-    <div style="padding: 0px 80px;color: #f00;">初始密码为“123”</div>
+    <div v-if="id==0 &&form.role==1" style="padding: 0px 80px;color: #f00;">初始密码为“123”</div>
     <div slot="footer" class="dialog-footer">
       <el-button @click="handle_Close">取消</el-button>
       <el-button type="primary">确认</el-button>
@@ -46,9 +55,9 @@ export default {
         id: 0,
         username: "",
         relname: "",
-        active: "",
-        coId: "",
-        role: 2
+        active: "1",
+        role: "2",
+        invitationCode: ""
       },
       rules: {}
     };
@@ -62,23 +71,18 @@ export default {
   watch: {
     formDialog() {
       if (this.formDialog) {
-        this.http.get("/api/ent/select").then(res => {
-          if (res.code == 200) {
-            this.entList = res.data;
-          }
-          if (this.id == 0) {
-            this.form = {
-              id: 0,
-              username: "",
-              relname: "",
-              active: "",
-              coId: "",
-              role: 2
-            };
-          } else {
-            this.http.get("/api/user/" + this.id).then(res => {});
-          }
-        });
+        if (this.id == 0) {
+          this.form = {
+            id: 0,
+            username: "",
+            relname: "",
+            active: "1",
+            role: "2",
+            invitationCode: ""
+          };
+        } else {
+          this.http.get("/api/user/" + this.id).then(res => {});
+        }
       }
     }
   }

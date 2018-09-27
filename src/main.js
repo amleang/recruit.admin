@@ -21,6 +21,11 @@ Vue.component('base-table', baseTable);
 import http from '@/components/api/http'
 Vue.prototype.http = http;
 
+
+import formImg from '@/components/tool/formImage'
+Vue.component('form-img', formImg);
+
+Vue.prototype.baseUrl = "http://jmart8.qixin.io";
 new Vue({
   el: '#app',
   router,

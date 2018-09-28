@@ -1,5 +1,4 @@
-[
-  {
+[{
     "id": 1,
     "name": "主页",
     "icon": "icon-shouye-xianxing",
@@ -11,29 +10,68 @@
     "name": "系统",
     "icon": "icon-shezhi-xianxing",
     "path": "/sys",
-    "subList": [
-      {
+    "subList": [{
         "id": 3,
         "name": "用户管理",
         "path": "/sys/user"
       },
       {
         "id": 4,
-        "name": "公司信息",
-        "path": "/enterprise/co"
+        "name": "基础信息",
+        "path": "/sys/base"
+      }, {
+        "id": 12,
+        "name": "客服设置",
+        "path": ""
       }
     ]
   },
   {
-    "id":5,
+    "id": 5,
     "name": "企业",
     "icon": "icon-qiyeyuanquwuye-xianxing",
     "path": "/enterprise",
-    "subList": [
+    "subList": [{
+      "id": 6,
+      "name": "企业管理",
+      "path": "/enterprise/list"
+    }]
+  }, {
+    "id": 13,
+    "name": "CRM",
+    "icon": "icon-jiaosequnti",
+    "path": "",
+    "subList": [{
+        "id": 14,
+        "name": "待回访",
+        "path": ""
+      },
       {
-        "id": 6,
-        "name": "企业管理",
-        "path": "/enterprise/list"
+        "id": 21,
+        "name": "已回访",
+        "path": ""
+      },
+      {
+        "id": 16,
+        "name": "待入职",
+        "path": ""
+      }, {
+        "id": 17,
+        "name": "待返现",
+        "path": ""
+      },
+      {
+        "id": 18,
+        "name": "已结束",
+        "path": ""
+      }, {
+        "id": 19,
+        "name": "推荐用户",
+        "path": ""
+      }, {
+        "id": 20,
+        "name": "返现记录",
+        "path": ""
       }
     ]
   },
@@ -42,21 +80,18 @@
     "name": "招工",
     "icon": "icon-hezuoguanxi-xianxing",
     "path": "/recruit",
-    "subList": [
-      {
-        "id": 8,
-        "name": "招工管理",
-        "path": "/recruit/list"
-      }
-    ]
+    "subList": [{
+      "id": 8,
+      "name": "招工管理",
+      "path": "/recruit/list"
+    }]
   },
   {
     "id": 9,
     "name": "报表",
     "icon": "icon-zhexiantu-xianxing",
     "path": "report",
-    "subList": [
-      {
+    "subList": [{
         "id": 10,
         "name": "报表1",
         "path": "/recruit/list"

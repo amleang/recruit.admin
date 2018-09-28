@@ -55,6 +55,7 @@
       </div>
       <div class="layout-map">
         <el-breadcrumb separator="/">
+          <el-breadcrumb-item :to="{ path: '/' }">主页</el-breadcrumb-item>
           <el-breadcrumb-item v-for="(item,index) in breadcrumbList" :key="index">{{item.name}}</el-breadcrumb-item>
         </el-breadcrumb>
       </div>
@@ -102,7 +103,7 @@ export default {
       this.menuList.forEach((item, index) => {
         if (item.path == path) {
           this.activeMenu = item.id;
-          this.breadcrumbList.push(item);
+          if (path != "/") this.breadcrumbList.push(item);
         } else {
           item.subList.forEach(sub => {
             if (sub.path == path) {

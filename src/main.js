@@ -25,7 +25,7 @@ Vue.prototype.http = http;
 import formImg from '@/components/tool/formImage'
 Vue.component('form-img', formImg);
 
-Vue.prototype.baseUrl = "http://jmart8.qixin.io";
+Vue.prototype.baseUrl = "";
 new Vue({
   el: '#app',
   router,

@@ -48,10 +48,10 @@ export default {
       this.$emit("dialogHandle", { dialog: false, isreload: false });
     },
     handleAvatarSuccess(res, file) {
-      /* if (res.code == 200) {
+      if (res.code == 200) {
         this.form.picture = res.data[0];
       } else this.$message.error(res.msg);
-      loadding.close(); */
+      loadding.close();
     },
     beforeAvatarUpload(file) {
       const isJPG = "image/jpeg,image/png".indexOf(file.type) > -1;

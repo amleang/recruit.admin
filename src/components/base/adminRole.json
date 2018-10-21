@@ -19,24 +19,11 @@
         "id": 4,
         "name": "基础信息",
         "path": "/sys/base"
-      }, {
-        "id": 12,
-        "name": "客服设置",
-        "path": ""
       }
+      
     ]
   },
   {
-    "id": 5,
-    "name": "企业",
-    "icon": "icon-qiyeyuanquwuye-xianxing",
-    "path": "/enterprise",
-    "subList": [{
-      "id": 6,
-      "name": "企业管理",
-      "path": "/enterprise/list"
-    }]
-  }, {
     "id": 13,
     "name": "CRM",
     "icon": "icon-jiaosequnti",
@@ -94,12 +81,12 @@
     "subList": [{
         "id": 10,
         "name": "报表1",
-        "path": "/recruit/list"
+        "path": "/report/list"
       },
       {
         "id": 11,
         "name": "报表2",
-        "path": "/recruit/list"
+        "path": "/report/list"
       }
     ]
   }

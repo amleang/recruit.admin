@@ -10,46 +10,60 @@ import sysUser from "@/pages/sys/user"
 import sysBase from "@/pages/sys/base"
 import enterprise from "@/pages/enterprise/"
 import enterpriseList from "@/pages/enterprise/list"
-
+import recruit from "@/pages/recruit"
+import recruitList from "@/pages/recruit/list"
 
 Vue.use(Router)
 
 export default new Router({
   routes: [{
-      path: '/',
-      name: 'admin',
-      component: admin,
-      children: [{
-          path: "sys",
-          name: "sys",
-          component: sys,
-          redirect: "/sys/user",
-          children: [{
-              path: "/sys/user",
-              component: sysUser
-            },
-            {
-              path: "/sys/base",
-              component: sysBase
-            }
-          ]
+    path: '/',
+    name: 'admin',
+    component: admin,
+    children: [
+      {
+        path: "sys",
+        name: "sys",
+        component: sys,
+        redirect: "/sys/user",
+        children: [{
+          path: "/sys/user",
+          component: sysUser
         },
         {
-          name: "enterprise",
-          path: "enterprise",
-          component: enterprise,
-          redirect:"/enterprise/list",
-          children: [{
-            path: "/enterprise/list",
-            component: enterpriseList
-          }]
+          path: "/sys/base",
+          component: sysBase
         }
-      ]
-    },
-    {
-      path: '/login',
-      name: 'Login',
-      component: Login
-    }
+        ]
+      },
+      {
+        path: "recruit",
+        name: "recruit",
+        component: recruit,
+        redirect: "/recruit/list",
+        children: [{
+          path: "/recruit/list",
+          component: recruitList
+        }]
+
+      },
+      /* {
+        name: "enterprise",
+        path: "enterprise",
+        component: enterprise,
+        redirect: "/enterprise/list",
+        children: [{
+          path: "/enterprise/list",
+          component: enterpriseList
+        }
+        ]
+      } */
+    ]
+  },
+  {
+    path: '/login',
+    name: 'Login',
+    component: Login
+  }
   ]
 })

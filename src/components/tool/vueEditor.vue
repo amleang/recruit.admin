@@ -23,13 +23,7 @@ const toolbarOptions = [
   // [{ 'indent': '-1'}, { 'indent': '+1' }],
   // [{ 'direction': 'rtl' }],
   [{ color: [] }, { background: [] }],
-  [
-    { align: "" },
-    { align: "right" },
-    { align: "center" },
-    { align: "justify" }
-  ],
-
+  [{ align: "" }, { align: "right" }, { align: "center" }, { align: "justify" }]
 ];
 export default {
   props: {
@@ -60,6 +54,9 @@ export default {
     };
   },
   watch: {
+    content() {
+      this.$emit("changeedit", this.content);
+    },
     edit() {
       this.content = this.edit;
     }
@@ -68,7 +65,13 @@ export default {
 </script>
 
 <style>
-.vue-edit .ql-snow .ql-picker-options .ql-picker-item{
+.vue-edit .ql-snow .ql-picker-options .ql-picker-item {
   line-height: 15px;
+}
+h1,h2,h3,h4,h5,h6{
+  font-weight: normal;
+}
+.ql-editor{
+  font-size: 14px !important;
 }
 </style>

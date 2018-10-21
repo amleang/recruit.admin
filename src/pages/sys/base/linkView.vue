@@ -8,10 +8,10 @@
         <el-input v-model="form.phone" size="small" placeholder="请输入联系人电话"></el-input>
       </el-form-item>
       <el-form-item label="是否主联系人">
-        <el-switch v-model="form.default" @change="change_handle"></el-switch>
+        <el-switch v-model="form.default" :active-value="1" :inactive-value="0" @change="change_handle"></el-switch>
       </el-form-item>
       <el-form-item>
-        <el-button type="danger" icon="el-icon-delete" size="mini">删除</el-button>
+        <el-button type="danger" icon="el-icon-delete" size="mini" @click="del_handle">删除</el-button>
       </el-form-item>
     </el-form>
   </div>
@@ -33,7 +33,12 @@ export default {
   },
   data() {
     return {
-      rules: {}
+      rules: {
+        link: [{ required: true, message: "请输入联系人", trigger: "blur" }],
+        phone: [
+          { required: true, message: "请输入联系人电话", trigger: "blur" }
+        ]
+      }
     };
   },
   methods: {
@@ -42,10 +47,16 @@ export default {
         this.$emit("linkChange", this.index);
       }
     },
+    del_handle() {
+      this.$emit("delHandle", this.index);
+    },
     validateFun() {
-      this.$refs.linkform.validate(valid => {
-        return valid;
+      var p = new Promise((resolve, reject) => {
+        this.$refs.linkform.validate(valid => {
+          resolve(valid);
+        });
       });
+      return p;
     }
   }
 };

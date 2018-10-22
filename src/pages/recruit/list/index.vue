@@ -24,20 +24,23 @@
             <div slot="button">
                 <el-button size="small" icon="el-icon-plus" type="success" @click="add_handle">添加</el-button>
             </div>
-            <!-- <template slot-scope="props">
+            <template slot-scope="props">
+                <div v-if="props.tplName=='tpsalary'">
+                    {{props.row.salaryStart}}-{{props.row.salaryEnd}}
+                </div>
                 <div v-if="props.tplName=='tpactive'">
                     {{props.row.active==1?'启用':'禁用'}}
                 </div>
-                <div v-if="props.tplName=='tprole'">
-                    {{props.row.role==1?'管理员':'推销员'}}
+                <div v-if="props.tplName=='tptype'">
+                    {{props.row.type==0?'无':props.row.type==1?'工价':'补贴'}}
                 </div>
                 <div v-if="props.tplName=='toperation'">
-                    <el-button size="small" type="danger" v-if="props.row.active==1" @click="enable_handle(props.row,0)">禁用</el-button>
-                    <el-button size="small" type="success" v-else @click="enable_handle(props.row,1)">启用</el-button>
+                    <el-button size="small" type="danger" v-if="props.row.active==1">禁用</el-button>
+                    <el-button size="small" type="success" v-else>启用</el-button>
                     <el-button size="small" v-if="props.row.role!=1" icon="el-icon-edit" type="primary" @click="editor_handle(props.row)">编辑
                     </el-button>
                 </div>
-            </template> -->
+            </template>
         </base-table>
         <detail-form :formDialog="formDialog" :id="currid" @dialogHandle="dialog_handle"></detail-form>
     </div>
@@ -48,7 +51,7 @@ import detailForm from "./form";
 
 export default {
   components: {
-    detailForm,
+    detailForm
   },
   data() {
     return {
@@ -56,13 +59,41 @@ export default {
       formDialog: false,
       queryParams: {},
       searchForm: {},
-      table: {}
+      table: {
+        action: "/api/recruit",
+        heads: [
+          { prop: "id", label: "id", type: "data", width: 50 },
+          { prop: "name", label: "标题", type: "data" },
+          { prop: "subname", label: "副标题", type: "data" },
+          {
+            prop: "salaryStart",
+            label: "薪资",
+            type: "comps",
+            tplName: "tpsalary"
+          },
+          { prop: "createAt", label: "创建时间", type: "time" },
+          { prop: "type", label: "类型", type: "comps", tplName: "tptype" },
+          { prop: "active", label: "状态", type: "comps", tplName: "tpactive" },
+
+          {
+            prop: "operation",
+            label: "操作",
+            type: "comps",
+            tplName: "toperation",
+            width: 200
+          }
+        ]
+      }
     };
   },
   methods: {
     query_handle() {},
     add_handle() {
       this.currid = 0;
+      this.formDialog = true;
+    },
+    editor_handle(row) {
+      this.currid = row.id;
       this.formDialog = true;
     },
     dialog_handle(res) {

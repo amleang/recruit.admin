@@ -39,6 +39,10 @@ export default {
   components: {
     VueEditor
   },
+  mounted() {
+    this.content = this.edit;
+  },
+
   data() {
     return {
       content: "",
@@ -68,10 +72,15 @@ export default {
 .vue-edit .ql-snow .ql-picker-options .ql-picker-item {
   line-height: 15px;
 }
-h1,h2,h3,h4,h5,h6{
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-weight: normal;
 }
-.ql-editor{
+.ql-editor {
   font-size: 14px !important;
 }
 </style>

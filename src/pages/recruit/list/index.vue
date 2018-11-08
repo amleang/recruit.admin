@@ -6,16 +6,28 @@
                     <div class="search-title">名称</div>
                 </el-col>
                 <el-col :span="9">
-                    <el-input v-model="searchForm.username" style="width:300px;" size="small" placeholder="请输入名称"></el-input>
+                    <el-input v-model="searchForm.name" style="width:220px;" size="small" placeholder="请输入名称"></el-input>
                 </el-col>
                 <el-col :span="3">
                     <div class="search-title">状态</div>
                 </el-col>
                 <el-col :span="9">
-                    <el-select v-model="searchForm.active" size="small" clearable placeholder="请选择状态">
+                    <el-select v-model="searchForm.active"  style="width:220px;" size="small" clearable placeholder="请选择状态">
                         <el-option label="全部" value=""></el-option>
                         <el-option label="启动" value="1"></el-option>
                         <el-option label="禁用" value="0"></el-option>
+                    </el-select>
+                </el-col>
+            </el-row>
+            <el-row :gutter="20" style="margin-top:10px;">
+                <el-col :span="3">
+                    <div class="search-title">置顶</div>
+                </el-col>
+                <el-col :span="9">
+                    <el-select v-model="searchForm.isTop"  style="width:220px;" size="small" clearable placeholder="请选择是否置顶">
+                        <el-option label="全部" value=""></el-option>
+                        <el-option label="是" value="1"></el-option>
+                        <el-option label="否" value="0"></el-option>
                     </el-select>
                 </el-col>
             </el-row>
@@ -29,14 +41,19 @@
                     {{props.row.salaryStart}}-{{props.row.salaryEnd}}
                 </div>
                 <div v-if="props.tplName=='tpactive'">
-                    {{props.row.active==1?'启用':'禁用'}}
+                    <el-tag v-if="props.row.active==1" type="success">启用</el-tag>
+                    <el-tag v-else type="danger">禁用</el-tag>
+                </div>
+                <div v-if="props.tplName=='tpisTop'">
+                    <el-tag v-if="props.row.isTop==1" type="success">是</el-tag>
+                    <el-tag v-else type="danger">否</el-tag>
                 </div>
                 <div v-if="props.tplName=='tptype'">
                     {{props.row.type==0?'无':props.row.type==1?'工价':'补贴'}}
                 </div>
                 <div v-if="props.tplName=='toperation'">
-                    <el-button size="small" type="danger" v-if="props.row.active==1">禁用</el-button>
-                    <el-button size="small" type="success" v-else>启用</el-button>
+                    <el-button size="small" type="danger" v-if="props.row.active==1" @click="active_handle(props.row)">禁用</el-button>
+                    <el-button size="small" type="success" v-else @click="active_handle(props.row)">启用</el-button>
                     <el-button size="small" v-if="props.row.role!=1" icon="el-icon-edit" type="primary" @click="editor_handle(props.row)">编辑
                     </el-button>
                 </div>
@@ -57,8 +74,8 @@ export default {
     return {
       currid: 0,
       formDialog: false,
-      queryParams: {},
-      searchForm: {},
+      queryParams: { name: "", active: "", isTop: "" },
+      searchForm: { name: "", active: "", isTop: "" },
       table: {
         action: "/api/recruit",
         heads: [
@@ -72,6 +89,12 @@ export default {
             tplName: "tpsalary"
           },
           { prop: "createAt", label: "创建时间", type: "time" },
+          {
+            prop: "isTop",
+            label: "是否置顶",
+            type: "comps",
+            tplName: "tpisTop"
+          },
           { prop: "type", label: "类型", type: "comps", tplName: "tptype" },
           { prop: "active", label: "状态", type: "comps", tplName: "tpactive" },
 
@@ -87,7 +110,14 @@ export default {
     };
   },
   methods: {
-    query_handle() {},
+    query_handle() {
+      Object.keys(this.searchForm).forEach(item => {
+        if (this.searchForm[item])
+          this.$set(this.queryParams, item, this.searchForm[item]);
+        else delete this.queryParams[item];
+      });
+      this.$refs.table.reload();
+    },
     add_handle() {
       this.currid = 0;
       this.formDialog = true;
@@ -95,6 +125,19 @@ export default {
     editor_handle(row) {
       this.currid = row.id;
       this.formDialog = true;
+    },
+    active_handle(row) {
+      const active = row.active == 1 ? 0 : 1;
+      const id = row.id;
+      this.http
+        .post("/api/recruit/active?id=" + id + "&active=" + active)
+        .then(res => {
+          if (res.code == 200) {
+            row.active = active;
+            if (active == 1) this.$messge.success("已启用");
+            else this.$message.success("已禁用");
+          } else this.$message.error(res.msg);
+        });
     },
     dialog_handle(res) {
       this.formDialog = res.dialog;

@@ -1,4 +1,5 @@
-[{
+[
+  {
     "id": 1,
     "name": "主页",
     "icon": "icon-shouye-xianxing",
@@ -10,7 +11,8 @@
     "name": "系统",
     "icon": "icon-shezhi-xianxing",
     "path": "/sys",
-    "subList": [{
+    "subList": [
+      {
         "id": 3,
         "name": "用户管理",
         "path": "/sys/user"
@@ -20,7 +22,6 @@
         "name": "基础信息",
         "path": "/sys/base"
       }
-      
     ]
   },
   {
@@ -28,7 +29,8 @@
     "name": "CRM",
     "icon": "icon-jiaosequnti",
     "path": "",
-    "subList": [{
+    "subList": [
+      {
         "id": 14,
         "name": "待回访",
         "path": ""
@@ -42,7 +44,8 @@
         "id": 16,
         "name": "待入职",
         "path": ""
-      }, {
+      },
+      {
         "id": 17,
         "name": "待返现",
         "path": ""
@@ -51,11 +54,13 @@
         "id": 18,
         "name": "已结束",
         "path": ""
-      }, {
+      },
+      {
         "id": 19,
         "name": "推荐用户",
         "path": ""
-      }, {
+      },
+      {
         "id": 20,
         "name": "返现记录",
         "path": ""
@@ -67,18 +72,26 @@
     "name": "招工",
     "icon": "icon-hezuoguanxi-xianxing",
     "path": "/recruit",
-    "subList": [{
-      "id": 8,
-      "name": "招工管理",
-      "path": "/recruit/list"
-    }]
+    "subList": [
+      {
+        "id": 8,
+        "name": "招工管理",
+        "path": "/recruit/list"
+      },
+      {
+        "id": 22,
+        "name": "招工纠错",
+        "path": "/recruit/correction"
+      }
+    ]
   },
   {
     "id": 9,
     "name": "报表",
     "icon": "icon-zhexiantu-xianxing",
     "path": "report",
-    "subList": [{
+    "subList": [
+      {
         "id": 10,
         "name": "报表1",
         "path": "/report/list"

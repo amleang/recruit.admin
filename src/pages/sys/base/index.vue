@@ -4,6 +4,9 @@
       <el-form-item label="企业名称">
         <el-input v-model="form.coName" size="small" placeholder="请输入企业名称"></el-input>
       </el-form-item>
+      <el-form-item label="平台电话">
+        <el-input v-model="form.platPhone" size="small" placeholder="请输入平台电话"></el-input>
+      </el-form-item>
       <el-form-item v-for="(item,index) in form.links" :key="index">
         <link-form style="margin-left:-150px;" ref="linkForm" :form="item" :index="index" @linkChange="link_change_handle" @delHandle="link_del_handle"></link-form>
       </el-form-item>
@@ -15,6 +18,9 @@
       </el-form-item>
       <el-form-item label="企业简介">
         <vue-editor :edit="form.abstract" @changeedit="content=>form.abstract = content"></vue-editor>
+      </el-form-item>
+      <el-form-item label="公司地址">
+        <el-input v-model="form.address" size="small" placeholder="请输入公司地址"></el-input>
       </el-form-item>
       <el-form-item label="标注公司地址">
         <div id="container"></div>
@@ -55,6 +61,8 @@ export default {
       form: {
         id: 0,
         coName: "",
+        address: "",
+        platPhone: "",
         links: [{ link: "", phone: "", default: false }],
         attention: "",
         abstract: "",
@@ -155,7 +163,10 @@ export default {
         this.$message.warning("请输入企业名称");
         return;
       }
-      console.log("linkForm=>", this.$refs.linkForm);
+      if (!this.form.platPhone) {
+        this.$message.warning("请输入平台电话");
+        return;
+      }
       var isFlag = true;
 
       await this.$refs.linkForm.forEach(item => {
@@ -171,6 +182,10 @@ export default {
       }
       if (!this.form.abstract) {
         this.$message.warning("请输入企业简介");
+        return;
+      }
+      if (!this.form.address) {
+        this.$message.warning("请输入企业地址");
         return;
       }
       if (!this.form.lat || !this.form.lng) {

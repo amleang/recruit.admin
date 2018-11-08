@@ -12,6 +12,7 @@ import enterprise from "@/pages/enterprise/"
 import enterpriseList from "@/pages/enterprise/list"
 import recruit from "@/pages/recruit"
 import recruitList from "@/pages/recruit/list"
+import recruitCorrection from "@/pages/recruit/correction"
 
 Vue.use(Router)
 
@@ -41,10 +42,15 @@ export default new Router({
         name: "recruit",
         component: recruit,
         redirect: "/recruit/list",
-        children: [{
-          path: "/recruit/list",
-          component: recruitList
-        }]
+        children: [
+          {
+            path: "/recruit/list",
+            component: recruitList
+          }, {
+            path: "/recruit/correction",
+            component: recruitCorrection
+          }
+        ]
 
       },
       /* {

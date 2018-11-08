@@ -26,6 +26,10 @@
             <el-input-number v-model="form.salaryEnd" :min="1" :max="100000" label="截止薪资"></el-input-number>
           </el-col>
         </el-form-item>
+        <el-form-item label="是否置顶">
+          <el-switch v-model="form.isTop" active-color="#13ce66" inactive-color="#ff4949" active-text="是" inactive-text="否">
+          </el-switch>
+        </el-form-item>
         <el-form-item label="类型">
           <el-col :span="4" style="min-width:190px;padding-right: 10px;">
             <el-select size="small" v-model="form.type">
@@ -91,6 +95,7 @@ export default {
         id: 0,
         name: "",
         subname: "",
+        isTop: 0,
         salaryStart: "",
         salaryEnd: "",
         subsidys: [{ value: "" }],

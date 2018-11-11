@@ -33,12 +33,12 @@
       {
         "id": 14,
         "name": "待回访",
-        "path": ""
+        "path": "/crm/wvisit"
       },
       {
         "id": 21,
         "name": "已回访",
-        "path": ""
+        "path": "/crm/avisit"
       },
       {
         "id": 16,

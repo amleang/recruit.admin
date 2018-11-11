@@ -13,7 +13,8 @@ import enterpriseList from "@/pages/enterprise/list"
 import recruit from "@/pages/recruit"
 import recruitList from "@/pages/recruit/list"
 import recruitCorrection from "@/pages/recruit/correction"
-
+import crm from "@/pages/crm"
+import crmwvisit from "@/pages/crm/wvisit"
 Vue.use(Router)
 
 export default new Router({
@@ -52,18 +53,29 @@ export default new Router({
           }
         ]
 
-      },
-      /* {
-        name: "enterprise",
-        path: "enterprise",
-        component: enterprise,
-        redirect: "/enterprise/list",
-        children: [{
-          path: "/enterprise/list",
-          component: enterpriseList
-        }
+      },{
+        name:"crm",
+        path:"crm",
+        component:crm,
+        redirect:"/crm/wvisit",
+        children:[
+          {
+            path:"/crm/wvisit",
+            component:crmwvisit
+          }
         ]
-      } */
+      }
+      // {
+      //   name: "enterprise",
+      //   path: "enterprise",
+      //   component: enterprise,
+      //   redirect: "/enterprise/list",
+      //   children: [{
+      //     path: "/enterprise/list",
+      //     component: enterpriseList
+      //   }
+      //   ]
+      // }
     ]
   },
   {

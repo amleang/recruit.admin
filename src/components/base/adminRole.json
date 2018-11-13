@@ -43,12 +43,12 @@
       {
         "id": 16,
         "name": "待入职",
-        "path": ""
+        "path": "/crm/wentry"
       },
       {
         "id": 17,
         "name": "待返现",
-        "path": ""
+        "path": "/crm/cashback"
       },
       {
         "id": 18,

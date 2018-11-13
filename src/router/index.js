@@ -15,6 +15,9 @@ import recruitList from "@/pages/recruit/list"
 import recruitCorrection from "@/pages/recruit/correction"
 import crm from "@/pages/crm"
 import crmwvisit from "@/pages/crm/wvisit"
+import crmavisit from "@/pages/crm/avisit"
+import crmwentry from "@/pages/crm/wentry"
+import crmcashback from "@/pages/crm/cashback"
 Vue.use(Router)
 
 export default new Router({
@@ -53,15 +56,24 @@ export default new Router({
           }
         ]
 
-      },{
-        name:"crm",
-        path:"crm",
-        component:crm,
-        redirect:"/crm/wvisit",
-        children:[
+      }, {
+        name: "crm",
+        path: "crm",
+        component: crm,
+        redirect: "/crm/wvisit",
+        children: [
           {
-            path:"/crm/wvisit",
-            component:crmwvisit
+            path: "/crm/wvisit",
+            component: crmwvisit
+          }, {
+            path: "/crm/avisit",
+            component: crmavisit
+          }, {
+            path: "/crm/wentry",
+            component: crmwentry
+          }, {
+            path: "/crm/cashback",
+            component: crmcashback
           }
         ]
       }

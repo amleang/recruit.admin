@@ -25,7 +25,7 @@
                     </el-date-picker>
                 </el-form-item>
                 <el-form-item label="备注">
-                    <el-input v-model="form.remarks" type="textarea" :rows="3" placeholder="请输入备注">
+                    <el-input v-model="form.remarks" type="textarea" maxlength="100" :rows="3" placeholder="请输入备注">
                     </el-input>
                 </el-form-item>
             </el-form>

@@ -41,11 +41,7 @@
                     </el-table-column>
                     <el-table-column prop="remarks" label="描述">
                     </el-table-column>
-                    <el-table-column label="操作" width="120">
-                        <template slot-scope="scope">
-                            <el-button size="small" icon="el-icon-delete" type="danger" @click="delete_handle(scope)">删除</el-button>
-                        </template>
-                    </el-table-column>
+                   
                 </el-table>
             </div>
         </el-card>
@@ -81,24 +77,7 @@ export default {
     handleClose() {
       this.$emit("dialogHandle", { dialog: false, isreload: this.isUpdate });
     },
-    delete_handle(scope) {
-      this.$confirm("确定要删除该返现记录吗, 是否继续?", "提示", {
-        confirmButtonText: "确定",
-        cancelButtonText: "取消",
-        type: "warning"
-      })
-        .then(() => {
-          this.http
-            .delete("/api/cashback/" + scope.row.id, { params: { type: 0 } })
-            .then(res => {
-              if (res.code == 200) {
-                this.$message.success("删除成功！");
-                this.form.otherdata.splice(scope.$index, 1);
-              } else this.$message.error(res.msg);
-            });
-        })
-        .catch(() => {});
-    }
+    
   },
   watch: {
     formDialog() {

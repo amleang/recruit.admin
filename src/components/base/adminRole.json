@@ -52,18 +52,18 @@
       },
       {
         "id": 18,
-        "name": "已结束",
-        "path": ""
+        "name": "已完结",
+        "path": "/crm/end"
       },
       {
         "id": 19,
         "name": "推荐用户",
-        "path": ""
+        "path": "/crm/recommend"
       },
       {
         "id": 20,
         "name": "返现记录",
-        "path": ""
+        "path": "/crm/cashbacklist"
       }
     ]
   },

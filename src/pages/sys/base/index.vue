@@ -16,7 +16,7 @@
       <el-form-item label="注意事项">
         <vue-editor :edit="form.attention" @changeedit="content=>form.attention = content"></vue-editor>
       </el-form-item>
-      <el-form-item label="企业简介">
+      <el-form-item label="关于我们">
         <vue-editor :edit="form.abstract" @changeedit="content=>form.abstract = content"></vue-editor>
       </el-form-item>
       <el-form-item label="公司地址">

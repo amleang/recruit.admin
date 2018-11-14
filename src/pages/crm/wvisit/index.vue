@@ -22,7 +22,7 @@
           <el-button size="small" type="info" icon="el-icon-view" @click="view_handle(props.row)">查看</el-button>
           <el-button size="small" icon="el-icon-edit" type="primary" @click="editor_handle(props.row)">已回访
           </el-button>
-          <el-button size="small" icon="el-icon-delete" type="danger">作废</el-button>
+          <el-button size="small" icon="el-icon-delete" type="danger" @click="invalid_handle(props.row)">作废</el-button>
         </div>
       </template>
     </base-table>
@@ -41,18 +41,14 @@ export default {
       currid: 0,
       formDialog: false,
       searchForm: { name: "", phone: "", status: 0 },
-      queryParams: {
-        name: "",
-        phone: "",
-        status: 0
-      },
+      queryParams: { name: "", phone: "", status: 0 },
       table: {
         action: "/api/crm/wvisit",
         heads: [
-          { prop: "id", label: "id", type: "data",width:60 },
-          { prop: "name", label: "招工名称", type: "data",width:250 },
+          { prop: "id", label: "id", type: "data", width: 60 },
+          { prop: "name", label: "招工名称", type: "data", width: 250 },
           { prop: "username", label: "用户名称", type: "data" },
-          { prop: "phone", label: "用户电话", type: "data",width:150 },
+          { prop: "phone", label: "用户电话", type: "data", width: 150 },
           { prop: "inviter", label: "邀请人", type: "data" },
           { prop: "inviterCode", label: "邀请人编码", type: "data" },
           { prop: "createAt", label: "创建时间", type: "time" },
@@ -72,8 +68,13 @@ export default {
       Object.keys(this.searchForm).forEach(item => {
         if (this.searchForm[item])
           this.$set(this.queryParams, item, this.searchForm[item]);
-        else delete this.queryParams[item];
+        else {
+          if (item != "status") {
+            delete this.queryParams[item];
+          }
+        }
       });
+      console.log("searchForm=>", this.searchForm);
       this.$refs.table.reload();
     },
     view_handle(row) {
@@ -95,6 +96,25 @@ export default {
           this.$refs.table.reload();
         } else this.$message.error(res.msg);
       });
+    },
+    invalid_handle(row) {
+      this.$confirm("确定作废该报名信息吗, 是否继续?", "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning"
+      })
+        .then(() => {
+          this.http.post("/api/crm/invalid/" + row.id).then(res => {
+            if (res.code == 200) {
+              this.$message({
+                message: "作废成功！",
+                type: "success"
+              });
+              this.$refs.table.reload();
+            } else this.$message.error(res.msg);
+          });
+        })
+        .catch(() => {});
     },
     dialog_handle(res) {
       this.formDialog = res.dialog;

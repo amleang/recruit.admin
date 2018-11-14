@@ -18,6 +18,9 @@ import crmwvisit from "@/pages/crm/wvisit"
 import crmavisit from "@/pages/crm/avisit"
 import crmwentry from "@/pages/crm/wentry"
 import crmcashback from "@/pages/crm/cashback"
+import crmend from "@/pages/crm/end"
+import crmcashbacklist from "@/pages/crm/cashbacklist"
+import crmrecommend from "@/pages/crm/recommend"
 Vue.use(Router)
 
 export default new Router({
@@ -74,6 +77,15 @@ export default new Router({
           }, {
             path: "/crm/cashback",
             component: crmcashback
+          }, {
+            path: "/crm/end",
+            component: crmend
+          },{
+            path:"/crm/cashbacklist",
+            component:crmcashbacklist
+          },{
+            path:"/crm/recommend",
+            component:crmrecommend
           }
         ]
       }

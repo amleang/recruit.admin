@@ -1,65 +1,141 @@
 <template>
-    <div>
-        <base-query @queryhandle="query_handle">
-            <el-row :gutter="20">
-                <el-col :span="3">
-                    <div class="search-title">招工名称</div>
-                </el-col>
-                <el-col :span="9">
-                    <el-input v-model="searchForm.name" style="width:300px;" size="small" placeholder="请输入招工名称"></el-input>
-                </el-col>
-                <el-col :span="3">
-                    <div class="search-title">手机号</div>
-                </el-col>
-                <el-col :span="9">
-                    <el-input v-model="searchForm.phone" style="width:300px;" size="small" placeholder="请输入手机号"></el-input>
-                </el-col>
-            </el-row>
-        </base-query>
-        <base-table tableName="返现记录列表" ref="table" :action="table.action" :columns="table.heads" :queryParams="queryParams">
-            <div slot="button">
-                <el-button size="small" icon="el-icon-plus" type="success" @click="add_handle">添加</el-button>
-            </div>
-            <template slot-scope="props">
-                <div v-if="props.tplName=='toperation'">
-                    <el-button size="small" v-if="props.row.name!=''" icon="el-icon-delete" type="danger" @click="editor_handle(props.row)">删除
-                    </el-button>
-                    <el-button size="small" v-else icon="el-icon-delete" type="danger" @click="editor_handle(props.row)">作废
-                    </el-button>
-                </div>
-                <div v-if="props.tplName=='tptype'">
-                    {{props.row.name==''?'推荐记录':'返现记录'}}
-                </div>
+  <div>
+    <base-query @queryhandle="query_handle">
+      <el-row :gutter="20">
+        <el-col :span="3">
+          <div class="search-title">招工名称</div>
+        </el-col>
+        <el-col :span="9">
+          <el-input
+            v-model="searchForm.name"
+            style="width:300px;"
+            size="small"
+            placeholder="请输入招工名称"
+          ></el-input>
+        </el-col>
+        <el-col :span="3">
+          <div class="search-title">手机号</div>
+        </el-col>
+        <el-col :span="9">
+          <el-input
+            v-model="searchForm.phone"
+            style="width:300px;"
+            size="small"
+            placeholder="请输入手机号"
+          ></el-input>
+        </el-col>
+      </el-row>
+    </base-query>
+    <base-table
+      tableName="返现记录列表"
+      ref="table"
+      :action="table.action"
+      :columns="table.heads"
+      :queryParams="queryParams"
+    >
+      <div slot="button">
+        <el-button
+          size="small"
+          icon="el-icon-plus"
+          type="success"
+          @click="add_handle"
+        >添加</el-button>
+      </div>
+      <template slot-scope="props">
+        <div v-if="props.tplName=='toperation'">
+          <el-button
+            size="small"
+            v-if="props.row.name!=''"
+            icon="el-icon-delete"
+            type="danger"
+            @click="editor_handle(props.row)"
+          >删除
+          </el-button>
+          <el-button
+            size="small"
+            v-else
+            icon="el-icon-delete"
+            type="danger"
+            @click="editor_handle(props.row)"
+          >作废
+          </el-button>
+        </div>
+        <div v-if="props.tplName=='tptype'">
+          {{props.row.name==''?'推荐记录':'返现记录'}}
+        </div>
 
-            </template>
-        </base-table>
-        <el-dialog title="添加返现记录" :visible.sync="cashbackDialog" top="20vh" width="500px" :append-to-body="true" :close-on-click-modal="false" :before-close="handleClose">
-            <el-card>
-                <el-form label-width="100px" ref="form">
-                    <el-form-item label="待返现记录">
-                        <el-select v-model="form.enrollid" filterable remote reserve-keyword placeholder="请输入关键词" :remote-method="remoteMethod" :loading="loading">
-                            <el-option v-for="item in cashbacklist" :key="item.id" :label="item.username" :value="`${item.id+'|'+item.unionid}`">
-                                <span style="float: left">{{ item.id }}</span>
-                                <span style="float: right; color: #8492a6; font-size: 13px">{{ item.username }}</span>
-                            </el-option>
-                        </el-select>
-                    </el-form-item>
-                    <el-form-item label="金额">
-                        <el-input-number v-model="form.price" style="width:250px;" :min="1" :max="99999999" label="返现金额"></el-input-number>
-                    </el-form-item>
-                    <el-form-item label="备注">
-                        <el-input v-model="form.remarks" style="width:250px;" maxlength="100" type="textarea" :rows="3" placeholder="请输入备注">
-                        </el-input>
-                    </el-form-item>
-                </el-form>
-            </el-card>
-            <div slot="footer" class="dialog-footer">
-                <el-button @click="handleClose">取消</el-button>
-                <el-button type="primary" @click="save_handle">确定</el-button>
-            </div>
-        </el-dialog>
-        <!--   <detail-form :formDialog2="formDialog" @dialogHandle="dialog_handle"></detail-form> -->
-    </div>
+      </template>
+    </base-table>
+    <el-dialog
+      title="添加返现记录"
+      :visible.sync="cashbackDialog"
+      top="20vh"
+      width="500px"
+      :append-to-body="true"
+      :close-on-click-modal="false"
+      :before-close="handleClose"
+    >
+      <el-card>
+        <el-form
+          label-width="100px"
+          ref="form"
+        >
+          <el-form-item label="待返现记录">
+            <el-select
+              v-model="form.enrollid"
+              filterable
+              remote
+              reserve-keyword
+              placeholder="请输入会员手机号"
+              :remote-method="remoteMethod"
+              :loading="loading"
+            >
+              <el-option
+                v-for="item in cashbacklist"
+                :key="item.id"
+                :label="item.username"
+                :value="`${item.id+'|'+item.unionid}`"
+              >
+                <span style="float: left">{{ item.id }}</span>
+                <span style="float: right; color: #8492a6; font-size: 13px">{{ item.username }}</span>
+              </el-option>
+            </el-select>
+          </el-form-item>
+          <el-form-item label="金额">
+            <el-input-number
+              v-model="form.price"
+              style="width:250px;"
+              :min="1"
+              :max="99999999"
+              label="返现金额"
+            ></el-input-number>
+          </el-form-item>
+          <el-form-item label="备注">
+            <el-input
+              v-model="form.remarks"
+              style="width:250px;"
+              maxlength="100"
+              type="textarea"
+              :rows="3"
+              placeholder="请输入备注"
+            >
+            </el-input>
+          </el-form-item>
+        </el-form>
+      </el-card>
+      <div
+        slot="footer"
+        class="dialog-footer"
+      >
+        <el-button @click="handleClose">取消</el-button>
+        <el-button
+          type="primary"
+          @click="save_handle"
+        >确定</el-button>
+      </div>
+    </el-dialog>
+    <!--   <detail-form :formDialog2="formDialog" @dialogHandle="dialog_handle"></detail-form> -->
+  </div>
 </template>
 
 <script>
@@ -129,7 +205,7 @@ export default {
     },
     remoteMethod(val) {
       this.http
-        .get("/api/crm/enrolllist", { phone: val, status: 3 })
+        .get("/api/crm/enrolllist", { params: { phone: val, status: 3 } })
         .then(res => {
           this.cashbacklist = res.data;
           console.log("res=>phone=>", res);

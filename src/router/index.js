@@ -3,11 +3,13 @@ import Router from 'vue-router'
 
 import Login from '@/pages/login'
 import admin from '@/components/base/admin'
+import home from '@/pages/home'
 import sys from '@/pages/sys'
 /* import enterprise from "@/pages/enterprise"
 import enterpriselist from "@/pages/enterprise/list" */
 import sysUser from "@/pages/sys/user"
 import sysBase from "@/pages/sys/base"
+import sysWxuser from "@/pages/sys/wxuser"
 import enterprise from "@/pages/enterprise/"
 import enterpriseList from "@/pages/enterprise/list"
 import recruit from "@/pages/recruit"
@@ -21,6 +23,7 @@ import crmcashback from "@/pages/crm/cashback"
 import crmend from "@/pages/crm/end"
 import crmcashbacklist from "@/pages/crm/cashbacklist"
 import crmrecommend from "@/pages/crm/recommend"
+import { homedir } from 'os';
 Vue.use(Router)
 
 export default new Router({
@@ -28,7 +31,13 @@ export default new Router({
     path: '/',
     name: 'admin',
     component: admin,
+    redirect:"/home",
     children: [
+      {
+        path:"home",
+        name:"home",
+        component:home,
+      },
       {
         path: "sys",
         name: "sys",
@@ -41,6 +50,9 @@ export default new Router({
         {
           path: "/sys/base",
           component: sysBase
+        }, {
+          path: "/sys/wxuser",
+          component: sysWxuser
         }
         ]
       },
@@ -80,12 +92,12 @@ export default new Router({
           }, {
             path: "/crm/end",
             component: crmend
-          },{
-            path:"/crm/cashbacklist",
-            component:crmcashbacklist
-          },{
-            path:"/crm/recommend",
-            component:crmrecommend
+          }, {
+            path: "/crm/cashbacklist",
+            component: crmcashbacklist
+          }, {
+            path: "/crm/recommend",
+            component: crmrecommend
           }
         ]
       }

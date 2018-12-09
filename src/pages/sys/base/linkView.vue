@@ -7,9 +7,6 @@
       <el-form-item label="联系人电话" prop="phone">
         <el-input v-model="form.phone" size="small" placeholder="请输入联系人电话"></el-input>
       </el-form-item>
-      <el-form-item label="是否主联系人">
-        <el-switch v-model="form.default" :active-value="1" :inactive-value="0" @change="change_handle"></el-switch>
-      </el-form-item>
       <el-form-item>
         <el-button type="danger" icon="el-icon-delete" size="mini" @click="del_handle">删除</el-button>
       </el-form-item>

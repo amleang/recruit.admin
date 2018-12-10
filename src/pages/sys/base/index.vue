@@ -17,6 +17,15 @@
           v-model="form.ver"
           size="small"
           placeholder="请输入APP版本号"
+          maxlength="50"
+        ></el-input>
+      </el-form-item>
+      <el-form-item label="下载文件名称">
+        <el-input
+          v-model="form.downloadname"
+          size="small"
+          maxlength="50"
+          placeholder="请输入下载文件名称"
         ></el-input>
       </el-form-item>
       <el-form-item label="平台电话">
@@ -152,7 +161,8 @@ export default {
         lng: "",
         cover: "",
         qrcode: "",
-        ver: ""
+        ver: "",
+        downloadname: ""
       },
       markersArray: []
     };
@@ -250,8 +260,12 @@ export default {
         this.$message.warning("请输入平台电话");
         return;
       }
-      if(!this.form.ver){
+      if (!this.form.ver) {
         this.$message.warning("请输入APP版本号");
+        return;
+      }
+      if (!this.form.downloadname) {
+        this.$message.warning("请输下载文件名称");
         return;
       }
       var isFlag = true;

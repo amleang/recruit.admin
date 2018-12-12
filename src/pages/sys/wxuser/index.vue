@@ -37,6 +37,13 @@
     <base-table tableName="会员列表" ref="table" :action="table.action" :columns="table.heads" :queryParams="queryParams">
       <template slot-scope="props">
         <div v-if="props.tplName=='tpstatus'">{{props.row.status==1?'已注册':'未注册'}}</div>
+        <div v-if="props.tplName=='tpblacklist' && props.row.status==1">{{props.row.isblacklist==0?'否':'是'}}</div>
+        <div v-if="props.tplName=='toperation'">
+          <el-button size="small" v-if="props.row.isblacklist==1 && props.row.status==1" type="success" @click="set_handle(props.row,0)">设置白名单
+          </el-button>
+          <el-button size="small" v-if="props.row.isblacklist==0 && props.row.status==1" type="info" @click="set_handle(props.row,1)">设置黑名单
+          </el-button>
+        </div>
       </template>
     </base-table>
   </div>
@@ -62,7 +69,20 @@ export default {
           { prop: "phone", label: "手机号", type: "data" },
           { prop: "idCode", label: "身份证", type: "data", width: 220 },
           { prop: "status", label: "状态", type: "comps", tplName: "tpstatus" },
-          { prop: "createAt", label: "创建时间", type: "time" }
+          {
+            prop: "isblacklist",
+            label: "黑名单",
+            type: "comps",
+            tplName: "tpblacklist"
+          },
+          { prop: "createAt", label: "创建时间", type: "time" },
+          {
+            prop: "operation",
+            label: "操作",
+            type: "comps",
+            tplName: "toperation",
+            width: 150
+          }
         ]
       }
     };
@@ -75,6 +95,18 @@ export default {
         else delete this.queryParams[item];
       });
       this.$refs.table.reload();
+    },
+    set_handle(row, type) {
+      const postData = {
+        unionid: row.unionid,
+        type: type
+      };
+      this.http.post("/api/user/setwxuser", postData).then(res => {
+        if (res.code == 200) {
+          this.$message.success("设置成功");
+          this.$refs.table.reload();
+        } else this.$message.error(res.msg);
+      });
     }
   }
 };

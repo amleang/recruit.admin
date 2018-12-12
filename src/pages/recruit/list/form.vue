@@ -62,6 +62,9 @@
         <el-form-item label="工资福利">
           <vue-editor :edit="form.wages" @changeedit="content=>form.wages = content"></vue-editor>
         </el-form-item>
+        <el-form-item label="合同信息">
+          <vue-editor :edit="form.contract" @changeedit="content=>form.contract = content"></vue-editor>
+        </el-form-item>
         <el-form-item label="岗位介绍">
           <vue-editor :edit="form.post" @changeedit="content=>form.post = content"></vue-editor>
         </el-form-item>
@@ -105,6 +108,7 @@ export default {
         salaryEnd: "",
         subsidys: [{ value: "" }],
         wages: "",
+        contract:"",
         post: "",
         introduce: "",
         imgs: [],
@@ -152,6 +156,7 @@ export default {
       this.form.subsidys.splice(index, 1);
     },
     confirm_handle() {
+      debugger
       if (!this.form.name) {
         this.$message.warning("请输入标题");
         return;
@@ -182,6 +187,10 @@ export default {
       }
       if (this.form.wages == "") {
         this.$message.warning("请完善工资福利内容");
+        return;
+      }
+      if (this.form.contract == "") {
+        this.$message.warning("请完善合同信息内容");
         return;
       }
       if (this.form.post == "") {

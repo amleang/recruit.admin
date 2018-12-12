@@ -20,6 +20,10 @@
         <el-form-item label="邀请码">
           <el-input v-model="form.inviterCode" disabled size="small" maxlength="50" placeholder="邀请码"></el-input>
         </el-form-item>
+        <el-form-item label="是否黑名单">
+          <el-switch v-model="form.isblacklist" disabled active-value="1" inactive-value="0" active-color="#13ce66" inactive-color="#ff4949" active-text="是" inactive-text="否">
+          </el-switch>
+        </el-form-item>
         <el-form-item label="备注">
           <el-input v-model="form.remarks" type="textarea" maxlength="100" :rows="3" placeholder="请输入备注">
           </el-input>

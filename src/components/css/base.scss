@@ -130,6 +130,9 @@
       max-height: 50px;
     }
   }
+  .el-table{
+    overflow-y:auto; 
+  }
   .el-table::before{
     width: auto !important;
   }

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-card class="box-card table-form" :style="`min-width:${minwidth}px;min-height:500px;`">
+    <el-card class="box-card table-form" :style="`min-width:${minwidth}px;`">
       <div slot="header">
         <span>{{tableName}}</span>
         <div style="float: right;margin-top: -5px;">

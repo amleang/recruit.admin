@@ -119,16 +119,16 @@ export default {
         type: "warning"
       })
         .then(() => {
-          this.http.delete("/api/user/"+row.id).then(res=>{
-            if(res.code=200){
+          this.http.delete("/api/user/" + row.id).then(res => {
+            if ((res.code = 200)) {
               this.$message.success("删除成功！");
               this.$refs.table.reload();
-            }
-            else
-            this.$message.error(res.msg);
-          })
+            } else this.$message.error(res.msg);
+          });
         })
-        .cath(() => {});
+        .catch(() => {
+         
+        });
     },
     enable_handle(row, active) {
       let form = _.assign({}, row);

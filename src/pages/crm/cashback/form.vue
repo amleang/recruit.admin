@@ -20,6 +20,12 @@
                 <el-form-item label="邀请码">
                     <el-input v-model="form.inviterCode" disabled size="small" maxlength="50" placeholder="邀请码"></el-input>
                 </el-form-item>
+                <el-form-item label="银行">
+                    <el-input v-model="form.bank" disabled size="small" maxlength="50" placeholder="银行"></el-input>
+                </el-form-item>
+                 <el-form-item label="银行卡号">
+                    <el-input v-model="form.cardNumber" disabled size="small" maxlength="50" placeholder="银行卡号"></el-input>
+                </el-form-item>
                 <el-form-item label="备注">
                     <el-input v-model="form.remarks" disabled type="textarea" :rows="3" placeholder="请输入备注">
                     </el-input>

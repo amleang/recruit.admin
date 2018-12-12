@@ -6,80 +6,37 @@
           <div class="search-title">昵称</div>
         </el-col>
         <el-col :span="9">
-          <el-input
-            v-model="searchForm.nickname"
-            style="width:300px;"
-            size="small"
-            placeholder="请输入昵称"
-          ></el-input>
+          <el-input v-model="searchForm.nickname" style="width:300px;" size="small" placeholder="请输入昵称"></el-input>
         </el-col>
         <el-col :span="3">
           <div class="search-title">用户名称</div>
         </el-col>
         <el-col :span="9">
-          <el-input
-            v-model="searchForm.username"
-            style="width:300px;"
-            size="small"
-            placeholder="请输入用户名称"
-          ></el-input>
+          <el-input v-model="searchForm.username" style="width:300px;" size="small" placeholder="请输入用户名称"></el-input>
         </el-col>
       </el-row>
-      <el-row
-        :gutter="20"
-        style="margin-top:10px;"
-      >
+      <el-row :gutter="20" style="margin-top:10px;">
         <el-col :span="3">
           <div class="search-title">手机号</div>
         </el-col>
         <el-col :span="9">
-          <el-input
-            v-model="searchForm.phone"
-            style="width:300px;"
-            size="small"
-            placeholder="请输入手机号"
-          ></el-input>
+          <el-input v-model="searchForm.phone" style="width:300px;" size="small" placeholder="请输入手机号"></el-input>
         </el-col>
         <el-col :span="3">
           <div class="search-title">状态</div>
         </el-col>
         <el-col :span="9">
-          <el-select
-            v-model="searchForm.status"
-            size="small"
-            clearable
-            placeholder="请选择状态"
-            style="width:300px;"
-          >
-            <el-option
-              label="全部"
-              value=""
-            ></el-option>
-            <el-option
-              label="已注册"
-              value="1"
-            ></el-option>
-            <el-option
-              label="未注册"
-              value="0"
-            ></el-option>
+          <el-select v-model="searchForm.status" size="small" clearable placeholder="请选择状态" style="width:300px;">
+            <el-option label="全部" value></el-option>
+            <el-option label="已注册" value="1"></el-option>
+            <el-option label="未注册" value="0"></el-option>
           </el-select>
         </el-col>
       </el-row>
     </base-query>
-    <base-table
-      tableName="会员列表"
-      ref="table"
-      :action="table.action"
-      :columns="table.heads"
-      :queryParams="queryParams"
-    >
-
+    <base-table tableName="会员列表" ref="table" :action="table.action" :columns="table.heads" :queryParams="queryParams">
       <template slot-scope="props">
-        <div v-if="props.tplName=='tpstatus'">
-          {{props.row.status==1?'已注册':'未注册'}}
-        </div>
-
+        <div v-if="props.tplName=='tpstatus'">{{props.row.status==1?'已注册':'未注册'}}</div>
       </template>
     </base-table>
   </div>

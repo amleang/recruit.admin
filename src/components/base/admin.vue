@@ -42,7 +42,7 @@
           <span style="margin:0 10px;">{{user.username}}</span>
           <div class="head-ul">
             <div class="tool-menu">
-              <div class="menu-item">
+              <div class="menu-item" @click="update_pwd_handle">
                 <i class="iconfont icon-mima"></i>
                 修改密码
               </div>
@@ -63,6 +63,24 @@
         <router-view />
       </div>
     </div>
+    <el-dialog title="修改密码" :visible.sync="mainDialog" top="20vh" width="600px" append-to-body :close-on-click-modal="false" :before-close="handle_Close">
+      <el-form ref="mainform" :model="mainform" label-width="150px">
+        <el-form-item label="旧密码" prop="username">
+          <el-input type="password" size="small" v-model="mainform.oldpwd" maxlength="50" style="width:300px;" placeholder="请输入旧密码"></el-input>
+        </el-form-item>
+        <el-form-item label="新密码" prop="username">
+          <el-input type="password" size="small" v-model="mainform.pwd" maxlength="50" style="width:300px;" placeholder="请输入新密码"></el-input>
+        </el-form-item>
+        <el-form-item label="再次密码" prop="username">
+          <el-input type="password" size="small" v-model="mainform.repwd" maxlength="50" style="width:300px;" placeholder="请输入再次密码"></el-input>
+        </el-form-item>
+
+      </el-form>
+      <div slot="footer" class="dialog-footer">
+        <el-button @click="handle_Close">取消</el-button>
+        <el-button type="primary" @click="confirm_handle">确认</el-button>
+      </div>
+    </el-dialog>
   </div>
 </template>
 
@@ -72,6 +90,12 @@ import adminJson from "./adminRole";
 export default {
   data() {
     return {
+      mainDialog: false,
+      mainform: {
+        oldpwd: "",
+        pwd: "",
+        repwd: ""
+      },
       user: {},
       title: "招工管理系统",
       conWidth: 500,
@@ -83,7 +107,6 @@ export default {
   },
   mounted() {
     var member = Cookies.get("recrit-ck");
-    console.log("cookie=>", member);
     if (member) {
       this.user = JSON.parse(member);
       this.menuList = adminJson;
@@ -97,6 +120,56 @@ export default {
     }
   },
   methods: {
+    update_pwd_handle() {
+      this.mainDialog = true;
+    },
+    handle_Close() {
+      this.mainDialog = false;
+    },
+    confirm_handle() {
+      if (!this.mainform.oldpwd) {
+        this.$message.error("请输入旧密码");
+        return;
+      }
+      if (!this.mainform.pwd) {
+        this.$message.error("请输入新密码");
+        return;
+      }
+      if (!this.mainform.repwd) {
+        this.$message.error("请输入再次密码");
+        return;
+      }
+      debugger
+      if (this.mainform.pwd != this.mainform.repwd) {
+        this.$message.error("两次密码不一致，请重新输入");
+        return;
+      }
+      var member = Cookies.get("recrit-ck");
+      console.log("cookie=>", member);
+      if (member) {
+        this.user = JSON.parse(member);
+        const postData = {
+          id: this.user.id,
+          oldpwd: this.mainform.oldpwd,
+          pwd: this.mainform.pwd
+        };
+        this.http.post("/api/user/updpwd", postData).then(res => {
+          if (res.code == 200) {
+            this.$message.success("密码修改成功,请重新登陆!");
+            this.mainDialog = false;
+            Cookies.remove("recrit-ck");
+            setTimeout(() => {
+              this.$router.push({ path: "/login" });
+            }, 2500);
+          } else this.$message.error(res.msg);
+        });
+      } else {
+        this.$message.error("用户登录失效，请重新登录！");
+        setTimeout(() => {
+          this.$router.push({ path: "/login" });
+        }, 2000);
+      }
+    },
     url_change_handle() {
       this.breadcrumbList = [];
       var path = this.$route.path;

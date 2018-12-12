@@ -1,139 +1,54 @@
 <template>
   <div>
-    <el-form
-      ref="form"
-      :model="form"
-      label-width="150px"
-    >
+    <el-form ref="form" :model="form" label-width="150px">
       <el-form-item label="企业名称">
-        <el-input
-          v-model="form.coName"
-          size="small"
-          placeholder="请输入企业名称"
-        ></el-input>
+        <el-input v-model="form.coName" size="small" placeholder="请输入企业名称"></el-input>
       </el-form-item>
       <el-form-item label="app版本号">
-        <el-input
-          v-model="form.ver"
-          size="small"
-          placeholder="请输入APP版本号"
-          maxlength="50"
-        ></el-input>
+        <el-input v-model="form.ver" size="small" placeholder="请输入APP版本号" maxlength="50"></el-input>
       </el-form-item>
       <el-form-item label="下载文件名称">
-        <el-input
-          v-model="form.downloadname"
-          size="small"
-          maxlength="50"
-          placeholder="请输入下载文件名称"
-        ></el-input>
+        <el-input v-model="form.downloadname" size="small" maxlength="50" placeholder="请输入下载文件名称"></el-input>
       </el-form-item>
       <el-form-item label="平台电话">
-        <el-input
-          v-model="form.platPhone"
-          size="small"
-          placeholder="请输入平台电话"
-        ></el-input>
+        <el-input v-model="form.platPhone" size="small" placeholder="请输入平台电话"></el-input>
       </el-form-item>
-      <el-form-item
-        v-for="(item,index) in form.links"
-        :key="index"
-      >
-        <link-form
-          style="margin-left:-150px;"
-          ref="linkForm"
-          :form="item"
-          :index="index"
-          @linkChange="link_change_handle"
-          @delHandle="link_del_handle"
-        ></link-form>
+      <el-form-item v-for="(item,index) in form.links" :key="index">
+        <link-form style="margin-left:-150px;" ref="linkForm" :form="item" :index="index" @linkChange="link_change_handle" @delHandle="link_del_handle"></link-form>
       </el-form-item>
       <el-form-item label="">
-        <el-button
-          size="small"
-          icon="el-icon-plus"
-          type="success"
-          @click="add_link_handle"
-        >添加联系人</el-button>
+        <el-button size="small" icon="el-icon-plus" type="success" @click="add_link_handle">添加联系人</el-button>
       </el-form-item>
       <el-form-item label="注意事项">
-        <vue-editor
-          :edit="form.attention"
-          @changeedit="content=>form.attention = content"
-        ></vue-editor>
+        <vue-editor :edit="form.attention" @changeedit="content=>form.attention = content"></vue-editor>
       </el-form-item>
       <el-form-item label="关于我们">
-        <vue-editor
-          :edit="form.abstract"
-          @changeedit="content=>form.abstract = content"
-        ></vue-editor>
+        <vue-editor :edit="form.abstract" @changeedit="content=>form.abstract = content"></vue-editor>
       </el-form-item>
       <el-form-item label="公司地址">
-        <el-input
-          v-model="form.address"
-          size="small"
-          placeholder="请输入公司地址"
-        ></el-input>
+        <el-input v-model="form.address" size="small" placeholder="请输入公司地址"></el-input>
       </el-form-item>
       <el-form-item label="标注公司地址">
         <div id="container"></div>
       </el-form-item>
     </el-form>
-    <el-form
-      :inline="true"
-      ref="form2"
-      :model="form"
-      label-width="150px"
-      style="margin-bottom:40px;"
-    >
-      <el-form-item
-        label="封面图"
-        style="width:50%;"
-      >
-        <el-upload
-          style="float:left;"
-          class="avatar-uploader"
-          action="/api/upload"
-          :show-file-list="false"
-          :on-success="(res, file)=>handleAvatarSuccess(res,file,'cover')"
-          :before-upload="beforeAvatarUpload"
-        >
-          <form-img
-            v-if="form.cover"
-            :img="form.cover"
-          ></form-img>
-          <i
-            v-else
-            class="el-icon-plus avatar-uploader-icon"
-          ></i>
+    <el-form :inline="true" ref="form2" :model="form" label-width="150px" style="margin-bottom:40px;">
+      <el-form-item label="封面图" style="width:50%;">
+        <el-upload style="float:left;" class="avatar-uploader" action="/api/upload" :show-file-list="false" :on-success="(res, file)=>handleAvatarSuccess(res,file,'cover')" :before-upload="beforeAvatarUpload">
+          <form-img v-if="form.cover" :img="form.cover"></form-img>
+          <i v-else class="el-icon-plus avatar-uploader-icon"></i>
         </el-upload>
       </el-form-item>
       <el-form-item label="二维码">
-        <el-upload
-          style="float:left;"
-          class="avatar-uploader"
-          action="/api/upload"
-          :show-file-list="false"
-          :on-success="(res, file)=>handleAvatarSuccess(res,file,'qrcode')"
-          :before-upload="beforeAvatarUpload"
-        >
-          <form-img
-            v-if="form.qrcode"
-            :img="form.qrcode"
-          ></form-img>
-          <i
-            v-else
-            class="el-icon-plus avatar-uploader-icon"
-          ></i>
+        <el-upload style="float:left;" class="avatar-uploader" action="/api/upload" :show-file-list="false" :on-success="(res, file)=>handleAvatarSuccess(res,file,'qrcode')" :before-upload="beforeAvatarUpload">
+          <form-img v-if="form.qrcode" :img="form.qrcode"></form-img>
+          <i v-else class="el-icon-plus avatar-uploader-icon"></i>
         </el-upload>
       </el-form-item>
 
     </el-form>
     <div class="bottom">
-      <el-button
-        type="success"
-        @click="btn_save"
-      >保存</el-button>
+      <el-button type="success" @click="btn_save">保存</el-button>
     </div>
   </div>
 </template>

@@ -44,9 +44,11 @@
           {{props.row.role==1?'管理员':'推销员'}}
         </div>
         <div v-if="props.tplName=='toperation'">
-          <el-button size="small" type="danger" v-if="props.row.active==1" @click="enable_handle(props.row,0)">禁用</el-button>
+          <el-button size="small" type="warning" v-if="props.row.active==1" @click="enable_handle(props.row,0)">禁用</el-button>
           <el-button size="small" type="success" v-else @click="enable_handle(props.row,1)">启用</el-button>
           <el-button size="small" v-if="props.row.role!=1" icon="el-icon-edit" type="primary" @click="editor_handle(props.row)">编辑
+          </el-button>
+          <el-button size="small" v-if="props.row.role!=1" icon="el-icon-delete" type="danger" @click="del_handle(props.row)">删除
           </el-button>
         </div>
       </template>
@@ -85,7 +87,7 @@ export default {
             label: "操作",
             type: "comps",
             tplName: "toperation",
-            width: 200
+            width: 280
           }
         ]
       },
@@ -109,6 +111,24 @@ export default {
     editor_handle(row) {
       this.currid = row.id;
       this.formDialog = true;
+    },
+    del_handle(row) {
+      this.$confirm("确定要删除该用户吗, 是否继续?", "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning"
+      })
+        .then(() => {
+          this.http.delete("/api/user/"+row.id).then(res=>{
+            if(res.code=200){
+              this.$message.success("删除成功！");
+              this.$refs.table.reload();
+            }
+            else
+            this.$message.error(res.msg);
+          })
+        })
+        .cath(() => {});
     },
     enable_handle(row, active) {
       let form = _.assign({}, row);

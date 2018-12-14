@@ -86,7 +86,7 @@ export default {
 
   mounted() {
     const that = this;
-    this.tableHeight = document.documentElement.clientHeight - 210 + 55;
+    this.tableHeight = document.documentElement.clientHeight - 200;
     TMap("DE2BZ-47CRU-5LPVV-BXXAB-MWLRQ-D7FXQ").then(qq => {
       let lat = "31.27620345";
       let lng = "120.59967041";

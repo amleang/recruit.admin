@@ -25,28 +25,19 @@
       <div slot="header">
         <span>最近一周会员</span>
       </div>
-      <div
-        id="userChart"
-        :style="{width: '100%', height: '300px'}"
-      ></div>
+      <div id="userChart" :style="{width: '100%', height: '300px'}"></div>
     </el-card>
     <el-card style="margin-top:30px;">
       <div slot="header">
         <span>最近一周发布招工</span>
       </div>
-      <div
-        id="recruitChart"
-        :style="{width: '100%', height: '300px'}"
-      ></div>
+      <div id="recruitChart" :style="{width: '100%', height: '300px'}"></div>
     </el-card>
     <el-card style="margin-top:30px;">
       <div slot="header">
         <span>最近一周报名</span>
       </div>
-      <div
-        id="enrollChart"
-        :style="{width: '100%', height: '300px'}"
-      ></div>
+      <div id="enrollChart" :style="{width: '100%', height: '300px'}"></div>
     </el-card>
   </div>
 </template>
@@ -60,7 +51,7 @@ export default {
     };
   },
   mounted() {
-    this.tableHeight = document.documentElement.clientHeight - 210;
+    this.tableHeight = document.documentElement.clientHeight - 210 + 55;
     this.http.get("/api/home/report").then(res => {
       if (res.code == 200) {
         this.form = res.data;
@@ -74,7 +65,7 @@ export default {
   },
   methods: {
     userChart_handle(data) {
-      debugger
+      debugger;
       var title = [];
       var value1 = [];
       var value2 = [];

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div :style="`height:${tableHeight}px;background-color: #fff;padding: 24px;`">
     <el-form ref="form" :model="form" label-width="150px">
       <el-form-item label="企业名称">
         <el-input v-model="form.coName" size="small" placeholder="请输入企业名称"></el-input>
@@ -79,12 +79,14 @@ export default {
         ver: "",
         downloadname: ""
       },
-      markersArray: []
+      markersArray: [],
+      tableHeight: 500
     };
   },
 
   mounted() {
     const that = this;
+    this.tableHeight = document.documentElement.clientHeight - 210 + 55;
     TMap("DE2BZ-47CRU-5LPVV-BXXAB-MWLRQ-D7FXQ").then(qq => {
       let lat = "31.27620345";
       let lng = "120.59967041";

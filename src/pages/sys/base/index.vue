@@ -1,5 +1,5 @@
 <template>
-  <div :style="`height:${tableHeight}px;background-color: #fff;padding: 24px;`">
+  <div :style="`height:${tableHeight}px;background-color: #fff;padding: 24px;overflow-y:auto;`">
     <el-form ref="form" :model="form" label-width="150px">
       <el-form-item label="企业名称">
         <el-input v-model="form.coName" size="small" placeholder="请输入企业名称"></el-input>

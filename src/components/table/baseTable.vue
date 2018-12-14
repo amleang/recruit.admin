@@ -106,7 +106,7 @@ export default {
   mounted() {
     console.log("isExpand=>", this.isExpand);
     this.tableHeight =
-      document.documentElement.clientHeight - this.topHeight - 90;
+      document.documentElement.clientHeight - this.topHeight - 120;
     if (this.action) this.reload();
   },
   data() {

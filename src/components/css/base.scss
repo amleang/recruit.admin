@@ -131,7 +131,7 @@
     }
   }
   .el-table{
-    overflow-y:auto; 
+    overflow-y:auto !important; 
   }
   .el-table::before{
     width: auto !important;

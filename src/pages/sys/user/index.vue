@@ -46,6 +46,7 @@
         <div v-if="props.tplName=='toperation'">
           <el-button size="small" type="warning" v-if="props.row.active==1" @click="enable_handle(props.row,0)">禁用</el-button>
           <el-button size="small" type="success" v-else @click="enable_handle(props.row,1)">启用</el-button>
+          <el-button size="small" v-if="props.row.role==1" type="primary" icon="el-icon-refresh" @click="repwd_handle(props.row)">重置密码</el-button>
           <el-button size="small" v-if="props.row.role!=1" icon="el-icon-edit" type="primary" @click="editor_handle(props.row)">编辑
           </el-button>
           <el-button size="small" v-if="props.row.role!=1" icon="el-icon-delete" type="danger" @click="del_handle(props.row)">删除
@@ -126,9 +127,7 @@ export default {
             } else this.$message.error(res.msg);
           });
         })
-        .catch(() => {
-         
-        });
+        .catch(() => {});
     },
     enable_handle(row, active) {
       let form = _.assign({}, row);
@@ -143,6 +142,28 @@ export default {
     dialog_handle(res) {
       this.formDialog = res.dialog;
       if (res.isreload) this.$refs.table.reload();
+    },
+    repwd_handle(row) {
+      this.$prompt("请输入您要重置的密码", "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        inputPattern: /^[\s\S]*.*[^\s][\s\S]*$/,
+        inputErrorMessage: "请输入密码"
+      })
+        .then(({ value }) => {
+         const postData={
+           id:row.id,
+           pwd:value
+         }
+         this.http.post("/api/user/resetpwd",postData).then(res=>{
+           if(res.code==200){
+             this.$message.success("密码重置成功！");
+           }
+           else
+            this.$message.error(res.msg);
+         })
+        })
+        .catch(() => {});
     }
   }
 };

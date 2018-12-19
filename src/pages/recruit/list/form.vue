@@ -24,16 +24,19 @@
         </el-form-item>
         <el-form-item label="薪资范围">
           <el-col :span="4" style="min-width:190px;">
-            <el-input-number v-model="form.salaryStart" :min="1" :max="100000" label="起始薪资"></el-input-number>
+            <el-input-number size="small" v-model="form.salaryStart" :min="1" :max="100000" label="起始薪资"></el-input-number>
           </el-col>
           <el-col style="text-align: center;" :span="1">-</el-col>
           <el-col :span="4" style="min-width:190px;">
-            <el-input-number v-model="form.salaryEnd" :min="1" :max="100000" label="截止薪资"></el-input-number>
+            <el-input-number size="small" v-model="form.salaryEnd" :min="1" :max="100000" label="截止薪资"></el-input-number>
           </el-col>
         </el-form-item>
         <el-form-item label="是否置顶">
           <el-switch v-model="form.isTop" active-color="#13ce66" inactive-color="#ff4949" active-text="是" inactive-text="否">
           </el-switch>
+        </el-form-item>
+        <el-form-item label="排序">
+          <el-input-number size="small" v-model="form.weight" :min="1" :max="999999999" labbel="请输入排序值1-999999999"></el-input-number><span style="margin-left:20px;color:#f00;">[降序排序] 值越大排的越靠前</span>
         </el-form-item>
         <el-form-item label="类型">
           <el-col :span="4" style="min-width:190px;padding-right: 10px;">
@@ -108,13 +111,14 @@ export default {
         salaryEnd: "",
         subsidys: [{ value: "" }],
         wages: "",
-        contract:"",
+        contract: "",
         post: "",
         introduce: "",
         imgs: [],
         type: 0,
         subsidyExplain: "",
-        laborPrice: ""
+        laborPrice: "",
+        weight: 1
       }
     };
   },
@@ -156,7 +160,7 @@ export default {
       this.form.subsidys.splice(index, 1);
     },
     confirm_handle() {
-      debugger
+      debugger;
       if (!this.form.name) {
         this.$message.warning("请输入标题");
         return;

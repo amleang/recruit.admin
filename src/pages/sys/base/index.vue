@@ -23,7 +23,7 @@
         <vue-editor :edit="form.attention" @changeedit="content=>form.attention = content"></vue-editor>
       </el-form-item>
       <el-form-item label="关于我们">
-        <vue-editor :edit="form.abstract" @changeedit="content=>form.abstract = content"></vue-editor>
+        <vue-editor2 :edit="form.abstract" @changeedit="content=>form.abstract = content"></vue-editor2>
       </el-form-item>
       <el-form-item label="公司地址">
         <el-input v-model="form.address" size="small" placeholder="请输入公司地址"></el-input>
@@ -55,12 +55,14 @@
 <script>
 import linkForm from "./linkView";
 import VueEditor from "@/components/tool/vueEditor";
+import VueEditor2 from "@/components/tool/vueEditor2";
 import { TMap } from "@/components/lib/util";
 var loadding = null;
 export default {
   components: {
     linkForm,
-    VueEditor
+    VueEditor,
+    VueEditor2
   },
   data() {
     return {

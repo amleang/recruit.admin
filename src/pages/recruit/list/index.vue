@@ -9,13 +9,13 @@
           <el-input v-model="searchForm.name" style="width:220px;" size="small" placeholder="请输入名称"></el-input>
         </el-col>
         <el-col :span="3">
-          <div class="search-title">状态</div>
+          <div class="search-title">活动状态</div>
         </el-col>
         <el-col :span="9">
           <el-select v-model="searchForm.active" style="width:220px;" size="small" clearable placeholder="请选择状态">
             <el-option label="全部" value=""></el-option>
-            <el-option label="启动" value="1"></el-option>
-            <el-option label="禁用" value="0"></el-option>
+            <el-option label="启用招聘" value="1"></el-option>
+            <el-option label="停止招聘" value="0"></el-option>
           </el-select>
         </el-col>
       </el-row>
@@ -28,6 +28,16 @@
             <el-option label="全部" value=""></el-option>
             <el-option label="是" value="1"></el-option>
             <el-option label="否" value="0"></el-option>
+          </el-select>
+        </el-col>
+        <el-col :span="3">
+          <div class="search-title">状态</div>
+        </el-col>
+        <el-col :span="9">
+          <el-select v-model="searchForm.status" style="width:220px;" size="small" clearable placeholder="请选择状态">
+            <el-option label="全部" value=""></el-option>
+            <el-option label="开启" value="1"></el-option>
+            <el-option label="关闭" value="0"></el-option>
           </el-select>
         </el-col>
       </el-row>
@@ -80,8 +90,8 @@ export default {
     return {
       currid: 0,
       formDialog: false,
-      queryParams: { name: "", active: "", isTop: "" },
-      searchForm: { name: "", active: "", isTop: "" },
+      queryParams: { name: "", active: "", isTop: "", status: "" },
+      searchForm: { name: "", active: "", isTop: "", status: "" },
       table: {
         action: "/api/recruit",
         heads: [
@@ -109,7 +119,7 @@ export default {
             tplName: "tpactive"
           },
           { prop: "status", label: "状态", type: "comps", tplName: "tpstatus" },
-
+          { prop: "weight", label: "排序", type: "data", width: 50 },
           {
             prop: "operation",
             label: "操作",
@@ -153,8 +163,8 @@ export default {
     },
     status_handle(row) {
       const status = row.status == 1 ? 0 : 1;
-      const id=row.id;
-     this.http
+      const id = row.id;
+      this.http
         .post("/api/recruit/status?id=" + id + "&status=" + status)
         .then(res => {
           if (res.code == 200) {

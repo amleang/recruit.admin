@@ -357,8 +357,8 @@ export default {
 <style lang="scss">
 @import "../css/base.scss";
 .el-badge__content.is-fixed {
-  top: 15px;
-  right: 25px;
+  top: 15px !important;
+  right: 25px !important;
 }
 .el-button--small,
 .el-button--small.is-round {

@@ -160,7 +160,6 @@ export default {
       this.form.subsidys.splice(index, 1);
     },
     confirm_handle() {
-      debugger;
       if (!this.form.name) {
         this.$message.warning("请输入标题");
         return;

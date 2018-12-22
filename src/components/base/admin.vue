@@ -35,6 +35,8 @@
     <div class="nav-main">
       <div class="layout-header">
         <i style="display:inline-block;" :class="`top-menu iconfont icon-fenlei ${isCollapse?'icon_tra':'icon_tra_out'}`" @click="menu_click"></i>
+
+        <audio ref="audio" :src="mpurl"></audio>
         <div class="head-right">
           <span>
             <i class="account iconfont icon-ICON_MGD"></i>
@@ -51,6 +53,13 @@
                 退出登录</div>
             </div>
           </div>
+        </div>
+        <div style="float:right;">
+          <span class="remind" @click="pathtopvvist_handle">
+            <el-badge :value="msgcount" :max="99" class="item">
+              <el-button size="small"><i class=" iconfont icon-remind"></i></el-button>
+            </el-badge>
+          </span>
         </div>
       </div>
       <div class="layout-map">
@@ -87,9 +96,12 @@
 <script>
 import Cookies from "js-cookie";
 import adminJson from "./adminRole";
+import mp3url from "@/assets/audios/newmsg.mp3";
+import { formatDate } from "@/components/lib/util";
 export default {
   data() {
     return {
+      mpurl: mp3url,
       mainDialog: false,
       mainform: {
         oldpwd: "",
@@ -102,7 +114,11 @@ export default {
       isCollapse: false,
       activeMenu: "1",
       breadcrumbList: [],
-      menuList: []
+      menuList: [],
+      msgcount: 0,
+      settime: null,
+      timenow: "",
+      lastid: ""
     };
   },
   mounted() {
@@ -118,8 +134,60 @@ export default {
         this.$router.push({ path: "/login" });
       }, 2000);
     }
+    //定时器 获取是否有最新记录
+    //先获取当前系统时间
+    this.http.get("/api/home/systime").then(res => {
+      this.timenow = this.formatDate(res.data, "yyyy-MM-dd hh:mm:ss");
+      this.settimeHandle();
+    });
   },
   methods: {
+    formatDate,
+    settimeHandle() {
+      const that = this;
+      that.settime = setInterval(() => {
+        //调用接口
+        that.http.get("/api/home/getmsg?time=" + this.timenow).then(res => {
+          console.log("msg=>", res);
+          if (res.code == 200) {
+            that.msgcount = res.count;
+            if (res.data) {
+              if (res.data.id != that.lastid) {
+                that.lastid = res.data.id;
+                that.$refs.audio.play();
+                that.$notify({
+                  title: "消息提示",
+                  dangerouslyUseHTMLString: true,
+                  message:
+                    "<div>" +
+                    res.data.name +
+                    "</div><div>用户名:" +
+                    res.data.username +
+                    ";手机号:" +
+                    res.data.phone +
+                    "</div>",
+                  position: "bottom-right"
+                });
+              }
+            }
+          }
+        });
+      }, 10000);
+    },
+    pathtopvvist_handle() {
+      this.$router.push({ path: "/crm/wvisit" });
+      this.clear_msg_handle();
+    },
+    clear_msg_handle() {
+      console.log("clear");
+      window.clearInterval(this.settime);
+      this.msgcount = 0;
+      this.lastid = "";
+      this.http.get("/api/home/systime").then(res => {
+        this.timenow = this.formatDate(res.data, "yyyy-MM-dd hh:mm:ss");
+        this.settimeHandle();
+      });
+    },
     update_pwd_handle() {
       this.mainDialog = true;
     },
@@ -139,7 +207,6 @@ export default {
         this.$message.error("请输入再次密码");
         return;
       }
-      debugger
       if (this.mainform.pwd != this.mainform.repwd) {
         this.$message.error("两次密码不一致，请重新输入");
         return;
@@ -277,6 +344,10 @@ export default {
   },
   watch: {
     $route(to, from) {
+      console.log("to=>", to);
+      if (to.fullPath == "/crm/wvisit") {
+        this.clear_msg_handle();
+      }
       this.url_change_handle();
     }
   }
@@ -285,6 +356,14 @@ export default {
 
 <style lang="scss">
 @import "../css/base.scss";
+.el-badge__content.is-fixed {
+  top: 15px;
+  right: 25px;
+}
+.el-button--small,
+.el-button--small.is-round {
+  border: none !important;
+}
 </style>
 
 <style lang="scss" scoped >
@@ -316,5 +395,9 @@ export default {
   -moz-transition: -moz-transform 0.5s;
   -o-transition: -o-transform 0.5s;
   -ms-transition: -ms-transform 0.5s;
+}
+.remind {
+  color: #f00;
+  margin-right: 15px;
 }
 </style>

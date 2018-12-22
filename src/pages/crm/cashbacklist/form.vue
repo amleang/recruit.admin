@@ -91,7 +91,6 @@ export default {
   },
   watch: {
     formDialog2() {
-        debugger
       if (this.formDialog2) {
         this.$refs.table2.reload();
       }

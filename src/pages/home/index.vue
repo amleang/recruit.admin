@@ -1,5 +1,6 @@
 <template>
   <div :style="`height:${tableHeight}px`">
+     
     <el-card>
       <div slot="header">
         <span>数据汇总</span>
@@ -65,7 +66,6 @@ export default {
   },
   methods: {
     userChart_handle(data) {
-      debugger;
       var title = [];
       var value1 = [];
       var value2 = [];
@@ -120,7 +120,6 @@ export default {
       });
     },
     recruitChart_handle(data) {
-      debugger;
       var recuritlist = data.recuritlist;
       var title = [];
       var value = [];

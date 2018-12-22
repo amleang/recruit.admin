@@ -60,7 +60,6 @@ export default {
             container: toolbarOptions, // 工具栏}
             handlers: {
               image: function(value) {
-                debugger;
                 console.log("ele");
                 if (value) {
                   document.querySelector("#quill-upload input").click();
@@ -91,7 +90,6 @@ export default {
     },
     handleAvatarSuccess(res, file) {
       if (res.code == 200) {
-        debugger;
         let quill = this.$refs.vueeditor.quill;
         let length = quill.getSelection().index;
         quill.insertEmbed(length, "image", "http://www.szdejurenhe.com" + res.data);
